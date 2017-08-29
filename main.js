@@ -25,15 +25,15 @@ function intializeState(){
                     
                 } else{
                       console.log("push notification not supported");
-                      subscribeUser();
+                      subscribeUser(serviceWorkerRegistration);
                 }
          });
     })
 }
 
 
-function subscribeUser(){
-    ServiceWorkerRegistration.prototype.pushManager.subscribe().then(function(reg){
+function subscribeUser(serviceWorkerRegistration){
+    serviceWorkerRegistration.pushManager.subscribe().then(function(reg){
         console.log("push subscribed");
         console.log(reg);
     })
