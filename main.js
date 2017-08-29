@@ -21,7 +21,8 @@ function intializeState(){
              console.log("serviceWorker get subscription callback");
                 if(subscription){
                     // to do
-                    console.log("user not subscribed");
+                    console.log("user is subscribed");
+                    updateSubscriptionOnServer(subscription);
                     
                 } else{
                       console.log("push notification not supported");
@@ -33,8 +34,19 @@ function intializeState(){
 
 
 function subscribeUser(serviceWorkerRegistration){
-    serviceWorkerRegistration.pushManager.subscribe().then(function(reg){
-        console.log("push subscribed");
-        console.log(reg);
+    const applicationServerPublicKey = 'AAAAxssxb6w:APA91bGjfW-olgrGq6a1PQ8iSRjzx14zUIzO1l9x2RMykBgdDBJ5OqgybrOp8YmdA_imdyrHjxOT8_USHkxY8SXkEV_duvkUfEhJxeofRmiutz57fkagQ--t3bM66W_C9mWKqReN5tkb';
+     var options = {
+      userVisibleOnly: true
+      /*applicationServerKey: applicationServerPublicKey*/
+    };
+    serviceWorkerRegistration.pushManager.subscribe(options).then(function(subscription){
+        updateSubscriptionOnServer(subscription);
     })
 }
+
+
+function updateSubscriptionOnServer(subscription){
+    console.log("subscription object on server");
+    console.log(subscription);
+}
+
